@@ -29,23 +29,23 @@
 7. Retest with curl -v and observe the X-Response-Time header curl -v http://localhost:8080/hello/world
 
 8. Copy in LanguageHeaderValidation.scala to the source directory
-`
-package com.example.middleware
 
-import cats.data.Kleisli
+`package com.example.middleware`
+
+`import cats.data.Kleisli
 import cats.syntax.all.*
 import cats.Applicative
 import org.http4s.*
-import org.typelevel.ci.CIString
+import org.typelevel.ci.CIString`
 
-import scala.util.matching.Regex
+`import scala.util.matching.Regex`
 
-object LanguageHeaderValidator:
+`object LanguageHeaderValidator:
   private val pattern: Regex = """en-US|fr-US|en-CA|fr-CA""".r
-
-  def apply[F[_]: Applicative, G[_]](http: Http[F, G]): Http[F, G] =
+`
+`  def apply[F[_]: Applicative, G[_]](http: Http[F, G]): Http[F, G] =
     def badRequest[A](H: org.http4s.Headers, response: A)(using e: EntityEncoder[G, A]): Response[G] =
-      Response(status = Status.InternalServerError).withEntity(response)
+      Response(status = Status.InternalServerError).withEntity(response)`
 
     Kleisli { (req: Request[G]) =>
       val ciHeader = CIString("language")
