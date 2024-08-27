@@ -29,8 +29,8 @@
 7. Retest with curl -v and observe the X-Response-Time header curl -v http://localhost:8080/hello/world
 
 8. Copy in LanguageHeaderValidation.scala to the source directory
-
-`package com.example.middleware
+`
+package com.example.middleware
 
 import cats.data.Kleisli
 import cats.syntax.all.*
