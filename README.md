@@ -30,20 +30,21 @@
 
 8. Copy in LanguageHeaderValidation.scala to the source directory
 
-`package com.example.middleware`
+```
+package com.example.middleware
 
-`import cats.data.Kleisli
+import cats.data.Kleisli
 import cats.syntax.all.*
 import cats.Applicative
 import org.http4s.*
-import org.typelevel.ci.CIString`
+import org.typelevel.ci.CIString
 
-`import scala.util.matching.Regex`
+import scala.util.matching.Regex
 
-`object LanguageHeaderValidator:
+object LanguageHeaderValidator:
   private val pattern: Regex = """en-US|fr-US|en-CA|fr-CA""".r
-`
-`  def apply[F[_]: Applicative, G[_]](http: Http[F, G]): Http[F, G] =
+
+  def apply[F[_]: Applicative, G[_]](http: Http[F, G]): Http[F, G] =
     def badRequest[A](H: org.http4s.Headers, response: A)(using e: EntityEncoder[G, A]): Response[G] =
       Response(status = Status.InternalServerError).withEntity(response)`
 
@@ -63,7 +64,7 @@ import org.typelevel.ci.CIString`
     }
 
   def httpApp[F[_]: Applicative](httpApp: HttpApp[F]): HttpApp[F] =
-    apply(httpApp)`
+    apply(httpApp)```
 
 9. Update MiddlewareServer.scala to add a custom LanguageHeaderValidator
 
